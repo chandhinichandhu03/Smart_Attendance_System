@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard - Smart AI Attendance</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h2>Welcome, {{ student['name'] }}</h2>
+  <a href="{{ url_for('login.logout') }}">Logout</a>
+
+  <h3>Profile Details</h3>
+  <ul>
+    <li><b>Roll No:</b> {{ student['roll_no'] }}</li>
+    <li><b>Department:</b> {{ student['department'] }}</li>
+    <li><b>Mobile:</b> {{ student['mobile'] }}</li>
+  </ul>
+
+  <h3>Attendance Summary</h3>
+  <p><b>Cumulative Attendance:</b> {{ "%.2f"|format(percentage) }}%</p>
+
+  <h3>Attendance History</h3>
+  <table border="1" cellpadding="8">
+    <tr><th>Date</th><th>Status</th></tr>
+    {% for r in records %}
+    <tr>
+      <td>{{ r['date'] }}</td>
+      <td>{{ r['status'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

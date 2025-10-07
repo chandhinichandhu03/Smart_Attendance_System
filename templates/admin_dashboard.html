@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - Smart AI Attendance</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h2>Welcome, Admin</h2>
+  <a href="{{ url_for('login.logout') }}">Logout</a>
+
+  <h3>Add Student</h3>
+  <form action="{{ url_for('admin.add_student') }}" method="POST">
+    <input type="text" name="name" placeholder="Student Name" required>
+    <input type="text" name="roll_no" placeholder="Roll Number" required>
+    <input type="text" name="department" placeholder="Department" required>
+    <input type="text" name="mobile" placeholder="Mobile Number" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <hr>
+  <h3>Mark Attendance (Today)</h3>
+  <form action="{{ url_for('admin.mark_attendance') }}" method="POST">
+    <table border="1" cellpadding="8">
+      <tr><th>Roll No</th><th>Name</th><th>Present</th></tr>
+      {% for s in students %}
+      <tr>
+        <td>{{ s['roll_no'] }}</td>
+        <td>{{ s['name'] }}</td>
+        <td><input type="checkbox" name="attendance" value="{{ s['roll_no'] }}"></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <button type="submit">Submit Attendance</button>
+  </form>
+
+  <hr>
+  <h3>AI Insights — Low Attendance Students</h3>
+  {% if low_attendance %}
+    <ul>
+      {% for s in low_attendance %}
+        <li>{{ s[0] }} ({{ s[1] }}) — {{ "%.2f"|format(s[2]) }}%</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>All students have good attendance! 🎉</p>
+  {% endif %}
+
+  <hr>
+  <a href="{{ url_for('admin.export_excel') }}">📊 Export to Excel</a>
+</body>
+</html>
