@@ -6,6 +6,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "smart_attendance_secret"
+print("Som")
 
 # Register Blueprints
 app.register_blueprint(login_bp)
