@@ -101,6 +101,7 @@ p {
   margin-bottom: 1.5rem;
   background: linear-gradient(135deg, oklch(0.4 0.2 250), oklch(0.6 0.15 280));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
